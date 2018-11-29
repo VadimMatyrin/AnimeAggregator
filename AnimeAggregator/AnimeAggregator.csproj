@@ -27,7 +27,19 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\src\app\models\Anime.ts" />
+    <None Remove="ClientApp\src\app\models\AnimeUpdate.ts" />
+    <None Remove="ClientApp\src\app\models\Publisher.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\AnimeAggregator.Models\AnimeAggregator.Models.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\src\app\models\Anime.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\models\AnimeUpdate.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\models\Publisher.ts" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
