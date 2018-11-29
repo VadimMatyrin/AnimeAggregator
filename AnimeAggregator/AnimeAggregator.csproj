@@ -27,9 +27,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\src\app\Interfaces\Config.ts" />
     <None Remove="ClientApp\src\app\models\Anime.ts" />
     <None Remove="ClientApp\src\app\models\AnimeUpdate.ts" />
     <None Remove="ClientApp\src\app\models\Publisher.ts" />
+    <None Remove="ClientApp\src\app\services\AnimeService.ts" />
   </ItemGroup>
 
   <ItemGroup>
@@ -37,9 +39,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\src\app\Interfaces\Config.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\models\Anime.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\models\AnimeUpdate.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\models\Publisher.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\services\AnimeService.ts" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
