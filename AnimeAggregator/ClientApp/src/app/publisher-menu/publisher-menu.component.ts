@@ -12,6 +12,9 @@ export class PublisherMenuComponent implements OnInit {
   isExpanded = false;
   animeUpdates: AnimeUpdate[];
   publishers: Publisher[] = [];
+  selectedPublisher: Publisher;
+  selectedPublisherUpdates: AnimeUpdate[] = [];
+
   constructor(private animeService: AnimeService) {
   }
 
@@ -28,6 +31,11 @@ export class PublisherMenuComponent implements OnInit {
       if (this.publishers.map(p => p.name).indexOf(animeUpdate.publisher.name) === -1)
         this.publishers.push(animeUpdate.publisher)
     }
+  }
+
+  selectPublisher(publisher: Publisher) {
+    this.selectedPublisher = publisher;
+    this.selectedPublisherUpdates = this.animeUpdates.filter(au => au.publisher.name === this.selectedPublisher.name);
   }
 
   ngOnInit() {

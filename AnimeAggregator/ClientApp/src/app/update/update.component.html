@@ -1,3 +1,8 @@
-<p>
-  update works!
-</p>
+<div *ngIf="publisher !== undefined">
+  <h1>{{publisher.name}}</h1>
+  <ul class='list'>
+    <li *ngFor="let publisherUpdate of publisherUpdates" >
+      <span><b>{{publisherUpdate.anime.name}}({{publisherUpdate.episodeNum}}-я серия)</b> - {{publisherUpdate.updateDate}}</span>
+    </li>
+  </ul>
+</div>

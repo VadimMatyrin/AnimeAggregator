@@ -1,3 +1,12 @@
+@media (max-width: 767px) {
+  /* On small screens, the nav menu spans the full width of the screen. Leave a space for it. */
+  .body-content {
+    padding-top: 50px;
+  }
+}
+li {
+  cursor: pointer;
+}
 li .glyphicon {
     margin-right: 10px;
 }
@@ -17,7 +26,9 @@ li.link-active a:focus {
     left: 0;
     right: 0;
     z-index: 1;
+    color: white;
 }
+
 
 @media (min-width: 768px) {
     /* On small screens, convert the nav menu to a vertical sidebar */
