@@ -29,7 +29,8 @@ namespace AnimeAggregator.Controllers
             {
                 var nodeText = node.QuerySelector(".update-info").InnerHtml;
                 var anime = new Anime { Name = node.QuerySelector(".update-title").InnerHtml };
-                var publisher = new Publisher { Name = nodeText.Split(' ').Last() };
+                var regex = new Regex(@"[^a-zA-Z]");
+                var publisher = new Publisher { Name = regex.Replace(nodeText, "") };
                 var updateDate = node.QuerySelector(".update-date").InnerHtml;
                 var episodeNums = Regex.Split(nodeText, @"\D+").Where(num => !string.IsNullOrEmpty(num)).ToList();
                 DubType dubType;
