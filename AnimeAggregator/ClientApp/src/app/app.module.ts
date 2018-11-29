@@ -5,14 +5,14 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
-import { NavMenuComponent } from './nav-menu/nav-menu.component';
+import { PublisherMenuComponent } from './publisher-menu/publisher-menu.component';
 import { HomeComponent } from './home/home.component';
 import { AnimeService } from './services/AnimeService';
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavMenuComponent,
+    PublisherMenuComponent,
     HomeComponent
   ],
   imports: [

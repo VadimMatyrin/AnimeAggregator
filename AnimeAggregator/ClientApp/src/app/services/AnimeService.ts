@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AnimeUpdate } from '../models/AnimeUpdate';
-import { Config } from '../Interfaces/Config';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class AnimeService {
