@@ -8,12 +8,14 @@ import { AppComponent } from './app.component';
 import { PublisherMenuComponent } from './publisher-menu/publisher-menu.component';
 import { HomeComponent } from './home/home.component';
 import { AnimeService } from './services/AnimeService';
+import { UpdateComponent } from './update/update.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PublisherMenuComponent,
-    HomeComponent
+    HomeComponent,
+    UpdateComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
