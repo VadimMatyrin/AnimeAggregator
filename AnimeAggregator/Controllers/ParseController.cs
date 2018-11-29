@@ -32,6 +32,13 @@ namespace AnimeAggregator.Controllers
                 var publisher = new Publisher { Name = nodeText.Split(' ').Last() };
                 var updateDate = node.QuerySelector(".update-date").InnerHtml;
                 var episodeNums = Regex.Split(nodeText, @"\D+").Where(num => !string.IsNullOrEmpty(num)).ToList();
+                DubType dubType;
+
+                if (nodeText.Contains("озвучкой"))
+                    dubType = DubType.Voiceover;
+                else
+                    dubType = DubType.Subtitiles;
+
                 if (episodeNums.Count >= 2)
                 {
                     var num1 = short.Parse(episodeNums[0]);
@@ -45,7 +52,8 @@ namespace AnimeAggregator.Controllers
                                 Anime = anime,
                                 Publisher = publisher,
                                 EpisodeNum = i,
-                                UpdateDate = updateDate
+                                UpdateDate = updateDate,
+                                DubType = dubType
                             };
                             animeUpdates.Add(animeUpdate);
                         }
@@ -59,7 +67,8 @@ namespace AnimeAggregator.Controllers
                                 Anime = anime,
                                 Publisher = publisher,
                                 EpisodeNum = short.Parse(episodeNum),
-                                UpdateDate = updateDate
+                                UpdateDate = updateDate,
+                                DubType = dubType
                             };
                             animeUpdates.Add(animeUpdate);
                         }
@@ -72,7 +81,8 @@ namespace AnimeAggregator.Controllers
                         Anime = anime,
                         Publisher = publisher,
                         EpisodeNum = short.Parse(episodeNums[0]),
-                        UpdateDate = updateDate
+                        UpdateDate = updateDate,
+                        DubType = dubType
                     };
                     animeUpdates.Add(animeUpdate);
                 }
