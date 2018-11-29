@@ -6,4 +6,10 @@ export class AnimeUpdate {
   public publisher: Publisher;
   public episodeNum: number;
   public updateDate: string;
+  public dubType: DubType;
+}
+
+enum DubType {
+  Subtitles,
+  Voiceocer
 }

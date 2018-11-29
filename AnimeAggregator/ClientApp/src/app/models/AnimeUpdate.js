@@ -6,4 +6,9 @@ var AnimeUpdate = /** @class */ (function () {
     return AnimeUpdate;
 }());
 exports.AnimeUpdate = AnimeUpdate;
+var DubType;
+(function (DubType) {
+    DubType[DubType["Subtitles"] = 0] = "Subtitles";
+    DubType[DubType["Voiceocer"] = 1] = "Voiceocer";
+})(DubType || (DubType = {}));
 //# sourceMappingURL=AnimeUpdate.js.map

@@ -10,6 +10,7 @@ import { HomeComponent } from './home/home.component';
 import { AnimeService } from './services/AnimeService';
 import { UpdateComponent } from './update/update.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,

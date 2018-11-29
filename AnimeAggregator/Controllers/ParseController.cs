@@ -87,6 +87,7 @@ namespace AnimeAggregator.Controllers
                     animeUpdates.Add(animeUpdate);
                 }
             }
+
             return animeUpdates;
         }
 

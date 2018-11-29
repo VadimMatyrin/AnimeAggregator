@@ -1,8 +1,9 @@
 <div *ngIf="publisher !== undefined">
   <h1>{{publisher.name}}</h1>
   <ul class='list'>
-    <li *ngFor="let publisherUpdate of publisherUpdates" >
-      <span><b>{{publisherUpdate.anime.name}}({{publisherUpdate.episodeNum}}-я серия)</b> - {{publisherUpdate.updateDate}}</span>
+    <li *ngFor="let publisherUpdate of publisherUpdates">
+      <span><b>{{publisherUpdate.anime.name}}({{publisherUpdate.episodeNum}}-я серия)</b> - {{publisherUpdate.updateDate}}</span><br />
+      <span>{{(publisherUpdate.dubType === 1)? 'Озвучка':'Субтитры'}}</span>
     </li>
   </ul>
 </div>
