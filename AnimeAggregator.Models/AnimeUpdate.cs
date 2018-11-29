@@ -9,5 +9,6 @@ namespace AnimeAggregator.Models
         public Anime Anime { get; set; }
         public Publisher Publisher { get; set; }
         public short EpisodeNum { get; set; }
+        public string UpdateDate { get; set; }
     }
 }
