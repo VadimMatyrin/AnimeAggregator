@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Publisher } from '../models/Publisher';
-import { AnimeUpdate } from '../models/AnimeUpdate';
+import { AnimeUpdate, DubType } from '../models/AnimeUpdate';
 
 @Component({
   selector: 'app-update',
@@ -10,7 +10,16 @@ import { AnimeUpdate } from '../models/AnimeUpdate';
 export class UpdateComponent implements OnInit {
   @Input() publisher: Publisher;
   @Input() publisherUpdates: AnimeUpdate[];
-  constructor( ) { }
+  selectedDubType = DubType;
+  keys: Array<string>;
+
+  constructor() {
+    this.keys = Object.keys(this.selectedDubType).filter(e => parseInt(e, 10) >= 0);
+  }
+
+  onChange() {
+    console.log(this.selectedDubType);
+  }
 
   ngOnInit() {
   }

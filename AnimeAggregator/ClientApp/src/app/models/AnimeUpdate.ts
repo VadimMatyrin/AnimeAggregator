@@ -9,7 +9,7 @@ export class AnimeUpdate {
   public dubType: DubType;
 }
 
-enum DubType {
+export enum DubType {
   Subtitles,
   Voiceocer
 }

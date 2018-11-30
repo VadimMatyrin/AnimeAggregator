@@ -1,1 +1,1 @@
-{"version":3,"file":"AnimeUpdate.js","sourceRoot":"","sources":["AnimeUpdate.ts"],"names":[],"mappings":";;AAGA;IAAA;IAMA,CAAC;IAAD,kBAAC;AAAD,CAAC,AAND,IAMC;AANY,kCAAW;AAQxB,IAAK,OAGJ;AAHD,WAAK,OAAO;IACV,+CAAS,CAAA;IACT,+CAAS,CAAA;AACX,CAAC,EAHI,OAAO,KAAP,OAAO,QAGX"}
+{"version":3,"file":"AnimeUpdate.js","sourceRoot":"","sources":["AnimeUpdate.ts"],"names":[],"mappings":";;AAGA;IAAA;IAMA,CAAC;IAAD,kBAAC;AAAD,CAAC,AAND,IAMC;AANY,kCAAW;AAQxB,IAAY,OAGX;AAHD,WAAY,OAAO;IACjB,+CAAS,CAAA;IACT,+CAAS,CAAA;AACX,CAAC,EAHW,OAAO,GAAP,eAAO,KAAP,eAAO,QAGlB"}

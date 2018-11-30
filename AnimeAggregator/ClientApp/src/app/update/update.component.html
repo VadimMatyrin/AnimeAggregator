@@ -1,5 +1,10 @@
 <div *ngIf="publisher !== undefined">
   <h1>{{publisher.name}}</h1>
+  <select (change)="onChange()">
+    <option [value]="Select" selected disabled>select type</option>
+    <option *ngFor="let key of keys" [value]="key" [label]="selectedDubType[key]"></option>
+  </select>
+  {{selectedDubType}}
   <ul class='list'>
     <li *ngFor="let publisherUpdate of publisherUpdates">
       <span><b>{{publisherUpdate.anime.name}}({{publisherUpdate.episodeNum}}-я серия)</b> - {{publisherUpdate.updateDate}}</span><br />

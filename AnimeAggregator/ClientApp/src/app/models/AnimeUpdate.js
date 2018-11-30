@@ -10,5 +10,5 @@ var DubType;
 (function (DubType) {
     DubType[DubType["Subtitles"] = 0] = "Subtitles";
     DubType[DubType["Voiceocer"] = 1] = "Voiceocer";
-})(DubType || (DubType = {}));
+})(DubType = exports.DubType || (exports.DubType = {}));
 //# sourceMappingURL=AnimeUpdate.js.map
