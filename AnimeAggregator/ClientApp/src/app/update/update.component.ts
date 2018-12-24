@@ -15,7 +15,7 @@ export class UpdateComponent implements OnInit {
   set publisherUpdates(value: AnimeUpdate[]) {
     this._publisherUpdates = value;
     this.filteredPublishers = this._publisherUpdates;
-    //this.animeNames = Array.from(new Set(this._publisherUpdates.map(item => item.anime.name)));
+    this.animeNames = Array.from(new Set(this._publisherUpdates.map(item => item.anime.name)));
   }
   _filteredPublishers: AnimeUpdate[];
   get filteredPublishers(): AnimeUpdate[] {
@@ -23,7 +23,9 @@ export class UpdateComponent implements OnInit {
   }
   set filteredPublishers(value: AnimeUpdate[]) {
     this._filteredPublishers = value;
-    this.animeNames = Array.from(new Set(value.map(item => item.anime.name)));
+    //this.animeNames = Array.from(new Set(value.map(item => item.anime.name)));
+    //if (this.animeNames.length == 0)
+      //this.selectedAnime = "Any";
   }
   dubType = DubType;
   selectedDubType: string = "Any";
