@@ -1,14 +1,17 @@
 <div *ngIf="publisher !== undefined">
   <h1>{{publisher.name}}</h1>
-  <select (change)="onChange()">
-    <option [value]="Select" selected disabled>select type</option>
-    <option *ngFor="let key of keys" [value]="key" [label]="selectedDubType[key]"></option>
+  <select (change)="onChange($event.target.value, null)">
+    <option [ngValue]="Any" selected>Any</option>
+    <option *ngFor="let key of keys" [value]="key" [label]="dubType[key]"></option>
   </select>
-  {{selectedDubType}}
+  <select (change)="onChange(null, $event.target.value)">
+    <option [ngValue]="Any" selected>Any</option>
+    <option *ngFor="let animeName of animeNames" [value]="animeName" [label]="animeName"></option>
+  </select>
   <ul class='list'>
-    <li *ngFor="let publisherUpdate of publisherUpdates">
-      <span><b>{{publisherUpdate.anime.name}}({{publisherUpdate.episodeNum}}-я серия)</b> - {{publisherUpdate.updateDate}}</span><br />
-      <span>{{(publisherUpdate.dubType === 1)? 'Озвучка':'Субтитры'}}</span>
+    <li *ngFor="let filteredPublisher of filteredPublishers">
+      <span><b>{{filteredPublisher.anime.name}}({{filteredPublisher.episodeNum}}-я серия)</b> - {{filteredPublisher.updateDate}}</span><br />
+      <span>{{(filteredPublisher.dubType === 1)? 'Озвучка':'Субтитры'}}</span>
     </li>
   </ul>
 </div>
