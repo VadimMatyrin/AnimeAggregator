@@ -14,6 +14,7 @@ export class PublisherMenuComponent implements OnInit {
   publishers: Publisher[] = [];
   selectedPublisher: Publisher;
   selectedPublisherUpdates: AnimeUpdate[] = [];
+  selectedPage: number = 1;
 
   constructor(private animeService: AnimeService) {
   }
@@ -27,6 +28,7 @@ export class PublisherMenuComponent implements OnInit {
   }
 
   getPublishers() {
+    this.publishers = [];
     for (let animeUpdate of this.animeUpdates) {
       if (this.publishers.map(p => p.name).indexOf(animeUpdate.publisher.name) === -1)
         this.publishers.push(animeUpdate.publisher)
@@ -39,9 +41,33 @@ export class PublisherMenuComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.animeService.getAnimeUpdates(6).subscribe(data => {
-      this.animeUpdates = data;
-      this.getPublishers();
-    });
+    this.getAnimeUpdates();
+  }
+  getAnimeUpdates() {
+    this.animeService.getAnimeUpdates(this.selectedPage).subscribe(data => this.updatePublishers(data));
+  }
+  updatePublishers(data: AnimeUpdate[]) {
+    this.animeUpdates = data;
+    this.selectedPublisher = undefined;
+    this.selectedPublisherUpdates = [];
+    this.getPublishers();
+  }
+  toNextPage() {
+    this.selectedPage++;
+    this.getAnimeUpdates();
+  }
+  toPrevPage() {
+    if (this.selectedPage !== 1)
+      this.selectedPage--;
+
+    this.getAnimeUpdates();
+  }
+  toBeginning() {
+    this.selectedPage = 1;
+    this.getAnimeUpdates();
+  }
+  toPlus10Page() {
+    this.selectedPage += 10;
+    this.getAnimeUpdates();
   }
 }

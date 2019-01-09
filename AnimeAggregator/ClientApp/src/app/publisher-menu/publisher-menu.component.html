@@ -14,14 +14,39 @@
       <div class='navbar-collapse collapse' [ngClass]='{ "in": isExpanded }'>
         <ul class='nav navbar-nav'>
           <li *ngFor="let publisher of publishers" (click)="selectPublisher(publisher)">
-              <span>{{publisher.name}}</span>
+            <span>{{publisher.name}}</span>
           </li>
           <!--<li [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]='{ exact: true }'>
-            <a [routerLink]='["/"]' (click)='collapse()'>
-              <span class='glyphicon glyphicon-home'></span> Home
-            </a>
-          </li>-->
+      <a [routerLink]='["/"]' (click)='collapse()'>
+        <span class='glyphicon glyphicon-home'></span> Home
+      </a>
+    </li>-->
         </ul>
+        <div class="row pageNav">
+          <div class="col-xs-3 text-center">
+            <button class="btn btn-md btn-primary" (click)="toBeginning()" [disabled]="selectedPage === 1">
+              <span class="glyphicon glyphicon-backward"></span>
+            </button>
+          </div>
+          <div class="col-xs-2 text-center">
+            <button class="btn btn-md btn-primary" (click)="toPrevPage()" [disabled]="selectedPage === 1">
+              <span class="glyphicon glyphicon-chevron-left"></span>
+            </button>
+          </div>
+          <div class="col-xs-2 text-center">
+            <p id="selectedPage">{{selectedPage}}</p>
+          </div>
+          <div class="col-xs-2 text-center" (click)="toNextPage()">
+            <button class="btn btn-md btn-primary">
+              <span class="glyphicon glyphicon-chevron-right"></span>
+            </button>
+          </div>
+          <div class="col-xs-3 text-center">
+            <button class="btn btn-md btn-primary" (click)="toPlus10Page()">
+              <span class="glyphicon glyphicon-forward"></span>
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
