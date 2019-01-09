@@ -39,7 +39,7 @@ export class PublisherMenuComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.animeService.getAnimeUpdates(1).subscribe(data => {
+    this.animeService.getAnimeUpdates(6).subscribe(data => {
       this.animeUpdates = data;
       this.getPublishers();
     });
