@@ -21,8 +21,8 @@ export class UpdateComponent implements OnInit {
   }
   filteredPublishers: AnimeUpdate[];
   dubType = DubType;
-  selectedDubType: string = "Any";
-  selectedAnime: Anime = null;
+  selectedDubType: string = undefined;
+  selectedAnime: Anime = undefined;
   keys: Array<string>;
   animes: Array<Anime> = [];
 
@@ -33,17 +33,23 @@ export class UpdateComponent implements OnInit {
   onChange(dubType: string, anime: string) {
 
     if (dubType !== null)
-      this.selectedDubType = dubType;
+      this.selectedDubType = dubType; 
+
+    if (dubType === "Any")
+      this.selectedDubType = undefined;
 
     if (anime !== null)
       this.selectedAnime = this.animes.filter(a => a.name === anime)[0];
 
-    if (this.selectedDubType === "Any")
+    if (anime === "Any")
+      this.selectedAnime = undefined;
+
+     if (this.selectedDubType === undefined)
       this.filteredPublishers = this._publisherUpdates;
     else
       this.filteredPublishers = this._publisherUpdates.filter(u => u.dubType === +this.selectedDubType);
 
-    if (this.selectedAnime === null)
+    if (this.selectedAnime === undefined)
       this.filteredPublishers = this.filteredPublishers;
     else
       this.filteredPublishers = this.filteredPublishers.filter(u => u.anime.name === this.selectedAnime.name);

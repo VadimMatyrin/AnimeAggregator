@@ -1,14 +1,14 @@
-<div class='col-sm-5 body-content'>
-  <div *ngIf="publisher !== undefined">
+<div class='col-sm-5 body-content' *ngIf="publisher !== undefined">
+  <div>
     <h1>{{publisher.name}}</h1>
     <div class="row">
       <select class="form-control col-sm-3" (change)="onChange($event.target.value, null)">
-        <option [ngValue]="null" selected>Any</option>
+        <option value="Any" selected>Any</option>
         <option *ngFor="let key of keys" [value]="key" [label]="dubType[key]"></option>
       </select>
       <br />
       <select class="form-control col-sm-3" (change)="onChange(null, $event.target.value)">
-        <option [ngValue]="null" selected>Any</option>
+        <option value="Any" selected>Any</option>
         <option *ngFor="let anime of animes" [value]="anime.name" [label]="anime.name"></option>
       </select>
     </div>
@@ -22,7 +22,7 @@
     </ul>
   </div>
 </div>
-<div class="col-sm-4">
+<div class="col-sm-4" *ngIf="publisher !== undefined">
   <anime-preview [anime]="selectedAnime">
   </anime-preview >
 </div>
