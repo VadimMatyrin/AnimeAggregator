@@ -84,7 +84,7 @@ namespace AnimeAggregator.Controllers
             var description = animePage.QuerySelector("#content-desc-text p").InnerText;
             var relativeUri = animePage.QuerySelector(".poster-block img").Attributes.FirstOrDefault(a => a.Name == "src")?.Value;
             var imageRef = $"https://yummyanime.com{relativeUri}";
-            var animeStatus = animePage.QuerySelector(".badge .review").InnerHtml;
+            var animeStatus = animePage.QuerySelector(".badge").InnerHtml;
             var animePreview = new AnimePreview
             {
                 AnimeStatus = animeStatus,
