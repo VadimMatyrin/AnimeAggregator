@@ -1,0 +1,14 @@
+<div *ngIf="_anime !== null">
+  <div class="col-xs-12">
+    <img id="animePoster" src={{animePreview.imageHref}} />
+  </div>
+  <div class="col-xs-12 text-center">
+    {{anime.name}}
+  </div>
+  <div class="col-xs-12" ng-bind-html>
+    <p ng-bind-html="animePreview.description">
+      {{animePreview.description}}
+    </p>
+    
+  </div>
+</div>

@@ -18,6 +18,7 @@ namespace AnimeAggregator.Controllers
     public class ParseController : Controller
     {
         private readonly HttpClient Client = new HttpClient();
+
         [HttpGet]
         [Route("GetUpdates/{pageNumber}")]
         public async Task<IEnumerable<AnimeUpdate>> Get(int pageNumber = 1)
@@ -27,11 +28,11 @@ namespace AnimeAggregator.Controllers
             var updateNodes = await GetLastUpdateNodes(pageNumber);
             foreach(var node in updateNodes)
             {
-                var nodeInnerHtml = node.QuerySelector(".update-info").InnerHtml;
+                var nodeInnerHtml = node.QuerySelector(".update-info").InnerText;
                 var animePageSrc = $"https://yummyanime.com{node.Attributes.FirstOrDefault(a => a.Name == "href").Value}";
                 var anime = new Anime { Name = node.QuerySelector(".update-title").InnerHtml, PageSrc = animePageSrc };
                 var publisher = new Publisher { Name = Regex.Replace(nodeInnerHtml, @"[^a-zA-Z]", "") };
-                var updateDate = node.QuerySelector(".update-date").InnerHtml;
+                var updateDate = node.QuerySelector(".update-date").InnerText;
                 var episodeNums = Regex.Split(nodeInnerHtml, @"\D+").Where(num => !string.IsNullOrEmpty(num)).ToList();
                 DubType dubType;
 
@@ -74,7 +75,36 @@ namespace AnimeAggregator.Controllers
             return animeUpdates;
         }
 
-        public async Task<IEnumerable<HtmlNode>> GetLastUpdateNodes(int pageNumber = 1)
+        [HttpGet]
+        [Route("")]
+        [Route("GetAnimePreview/{animeUrl?}")]
+        public async Task<AnimePreview> GetAnimePreview(string animeUrl)
+        {
+            var animePage = await GetAnimePage(animeUrl);
+            var description = animePage.QuerySelector("#content-desc-text p").InnerText;
+            var relativeUri = animePage.QuerySelector(".poster-block img").Attributes.FirstOrDefault(a => a.Name == "src")?.Value;
+            var imageRef = $"https://yummyanime.com{relativeUri}";
+            var animeStatus = animePage.QuerySelector(".badge .review").InnerHtml;
+            var animePreview = new AnimePreview
+            {
+                AnimeStatus = animeStatus,
+                Description = description,
+                ImageHref = imageRef
+            };  
+
+            return animePreview;
+        }
+
+        private async Task<HtmlDocument> GetAnimePage(string animeRef)
+        {
+            var result = await Client.GetAsync($"{animeRef}");
+            var stream = await result.Content.ReadAsStreamAsync();
+            var doc = new HtmlDocument();
+            doc.Load(stream);
+            return doc;
+        }
+
+        private async Task<IEnumerable<HtmlNode>> GetLastUpdateNodes(int pageNumber = 1)
         {
             var nodes = new List<HtmlNode>();
             var result = await Client.GetAsync($"https://yummyanime.com/anime-updates?page={pageNumber}");
@@ -85,5 +115,7 @@ namespace AnimeAggregator.Controllers
             nodes = nodes.ToList();
             return nodes;
         }
+
+
     }
 }

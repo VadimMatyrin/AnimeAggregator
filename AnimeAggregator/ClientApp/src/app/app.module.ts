@@ -9,6 +9,7 @@ import { PublisherMenuComponent } from './publisher-menu/publisher-menu.componen
 import { HomeComponent } from './home/home.component';
 import { AnimeService } from './services/AnimeService';
 import { UpdateComponent } from './update/update.component';
+import { AnimePreviewComponent } from './anime-preview/anime-preview.component';
 
 
 @NgModule({
@@ -17,6 +18,7 @@ import { UpdateComponent } from './update/update.component';
     PublisherMenuComponent,
     HomeComponent,
     UpdateComponent,
+    AnimePreviewComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
