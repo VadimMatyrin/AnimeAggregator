@@ -4,6 +4,10 @@
   margin: 20px auto 0 auto;
   width: 70%;
 }
+#animeName{
+  text-decoration: solid;
+  font-size: 25px;
+}
 #animeDescription{
 
 }

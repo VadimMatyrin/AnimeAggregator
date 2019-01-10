@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Publisher } from '../models/Publisher';
 import { AnimeUpdate, DubType } from '../models/AnimeUpdate';
 import { Anime } from '../models/Anime';
+import { forEach } from '@angular/router/src/utils/collection';
 
 @Component({
   selector: 'app-update',
@@ -14,9 +15,15 @@ export class UpdateComponent implements OnInit {
   @Input() publisher: Publisher;
   @Input('publisherUpdates')
   set publisherUpdates(value: AnimeUpdate[]) {
+    this.selectedAnime = null;
     this._publisherUpdates = value;
     this.filteredPublishers = this._publisherUpdates;
-    this.animes = this.filteredPublishers.map(fp => fp.anime);
+    this.animes = [];
+    for (var animeUpdate of this._publisherUpdates) {
+      if (this.animes.filter(a => a.name == animeUpdate.anime.name).length === 0)
+        this.animes.push(animeUpdate.anime);
+    }
+    //this.animes = Array.from(new Set(this._publisherUpdates.map(item => item.anime)));
     //this.animeNames = Array.from(new Set(this._publisherUpdates.map(item => item.anime.name)));
   }
   filteredPublishers: AnimeUpdate[];

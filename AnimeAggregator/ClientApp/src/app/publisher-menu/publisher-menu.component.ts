@@ -10,7 +10,7 @@ import { Publisher } from '../models/Publisher';
 })
 export class PublisherMenuComponent implements OnInit {
   isExpanded = false;
-  animeUpdates: AnimeUpdate[];
+  animeUpdates: AnimeUpdate[] = [];
   publishers: Publisher[] = [];
   selectedPublisher: Publisher;
   selectedPublisherUpdates: AnimeUpdate[] = [];

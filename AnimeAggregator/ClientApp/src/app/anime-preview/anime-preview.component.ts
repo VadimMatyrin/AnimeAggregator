@@ -12,10 +12,14 @@ export class AnimePreviewComponent implements OnInit {
 
   @Input('anime')
   set anime(value: Anime) {
+    this.animePreview = undefined;
     this._anime = value;
-    if(value !== null)
+    if(value !== undefined && value !== null)
       this.animeService.getAnimePreview(this._anime.pageSrc).subscribe(data => {
         this.animePreview = data;
+        var txt = document.createElement("textarea");
+        txt.innerHTML = this.animePreview.description;
+        this.animePreview.description = txt.value;
       });
   }
   get anime(): Anime {

@@ -3,10 +3,12 @@
     <img id="animePoster" src={{animePreview.imageHref}} />
   </div>
   <div class="col-xs-12 text-center">
-    {{anime.name}}
+    <p id="animeName">
+      {{anime.name}}
+    </p>
   </div>
   <div class="col-xs-12" ng-bind-html>
-    <p ng-bind-html="animePreview.description">
+    <p id="animeDescription">
       {{animePreview.description}}
     </p>
     
