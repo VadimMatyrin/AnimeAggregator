@@ -10,7 +10,9 @@
   </select>
   <ul class='list'>
     <li *ngFor="let filteredPublisher of filteredPublishers">
-      <span><b>{{filteredPublisher.anime.name}}({{filteredPublisher.episodeNum}}-я серия)</b> - {{filteredPublisher.updateDate}}</span><br />
+      <a href={{filteredPublisher.anime.pageSrc}} target="_blank">
+        <span><b>{{filteredPublisher.anime.name}}({{filteredPublisher.episodeNum}}-я серия)</b> - {{filteredPublisher.updateDate}}</span><br />
+      </a>
       <span>{{(filteredPublisher.dubType === 1)? 'Озвучка':'Субтитры'}}</span>
     </li>
   </ul>

@@ -28,7 +28,8 @@ namespace AnimeAggregator.Controllers
             foreach(var node in updateNodes)
             {
                 var nodeInnerHtml = node.QuerySelector(".update-info").InnerHtml;
-                var anime = new Anime { Name = node.QuerySelector(".update-title").InnerHtml };
+                var animePageSrc = $"https://yummyanime.com{node.Attributes.FirstOrDefault(a => a.Name == "href").Value}";
+                var anime = new Anime { Name = node.QuerySelector(".update-title").InnerHtml, PageSrc = animePageSrc };
                 var publisher = new Publisher { Name = Regex.Replace(nodeInnerHtml, @"[^a-zA-Z]", "") };
                 var updateDate = node.QuerySelector(".update-date").InnerHtml;
                 var episodeNums = Regex.Split(nodeInnerHtml, @"\D+").Where(num => !string.IsNullOrEmpty(num)).ToList();
@@ -73,7 +74,7 @@ namespace AnimeAggregator.Controllers
             return animeUpdates;
         }
 
-        public virtual async Task<IEnumerable<HtmlNode>> GetLastUpdateNodes(int pageNumber = 1)
+        public async Task<IEnumerable<HtmlNode>> GetLastUpdateNodes(int pageNumber = 1)
         {
             var nodes = new List<HtmlNode>();
             var result = await Client.GetAsync($"https://yummyanime.com/anime-updates?page={pageNumber}");
