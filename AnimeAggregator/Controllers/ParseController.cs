@@ -26,45 +26,28 @@ namespace AnimeAggregator.Controllers
             var animes = new List<Anime>();
             var animeUpdates = new List<AnimeUpdate>();
             var updateNodes = await GetLastUpdateNodes(pageNumber);
-            foreach(var node in updateNodes)
+            foreach (var node in updateNodes)
             {
-                var nodeInnerHtml = node.QuerySelector(".update-info").InnerText;
+                var nodeInnerText = node.QuerySelector(".update-info").InnerText;
+                var episodeNums = Regex.Split(nodeInnerText, @"\D+").Where(num => !string.IsNullOrEmpty(num)).ToList();
+                if (episodeNums.Count == 0)
+                    continue;
+
                 var animePageSrc = $"https://yummyanime.com{node.Attributes.FirstOrDefault(a => a.Name == "href").Value}";
-                var anime = new Anime { Name = node.QuerySelector(".update-title").InnerHtml, PageSrc = animePageSrc };
-                var publisher = new Publisher { Name = Regex.Replace(nodeInnerHtml, @"[^a-zA-Z]", "") };
+                var anime = new Anime { Name = node.QuerySelector(".update-title").InnerText, PageSrc = animePageSrc };
+                var publisher = new Publisher { Name = Regex.Replace(nodeInnerText, @"[^a-zA-Z]", "") };
                 var updateDate = node.QuerySelector(".update-date").InnerText;
-                var episodeNums = Regex.Split(nodeInnerHtml, @"\D+").Where(num => !string.IsNullOrEmpty(num)).ToList();
-                DubType dubType;
+                DubType dubType = nodeInnerText.Contains("озвучкой")? DubType.Voiceover : DubType.Subtitiles;
 
-                if (nodeInnerHtml.Contains("озвучкой"))
-                    dubType = DubType.Voiceover;
-                else
-                    dubType = DubType.Subtitiles;
-
-                if (episodeNums.Count >= 2)
-                {
-                    var num1 = short.Parse(episodeNums[0]);
-                    var num2 = short.Parse(episodeNums[1]);
-                    for (var i = num1; i <= num2; i++)
-                    {
-                        var animeUpdate = new AnimeUpdate
-                        {
-                            Anime = anime,
-                            Publisher = publisher,
-                            EpisodeNum = i,
-                            UpdateDate = updateDate,
-                            DubType = dubType
-                        };
-                        animeUpdates.Add(animeUpdate);
-                    }
-                }
-                else if (episodeNums.Count != 0)
+                var num1 = short.Parse(episodeNums[0]);
+                var num2 = short.Parse(episodeNums.ElementAtOrDefault(1) is null ? episodeNums[0] : episodeNums[1]);
+                for (var i = num1; i <= num2; i++)
                 {
                     var animeUpdate = new AnimeUpdate
                     {
                         Anime = anime,
                         Publisher = publisher,
-                        EpisodeNum = short.Parse(episodeNums[0]),
+                        EpisodeNum = i,
                         UpdateDate = updateDate,
                         DubType = dubType
                     };
@@ -90,7 +73,7 @@ namespace AnimeAggregator.Controllers
                 AnimeStatus = animeStatus,
                 Description = description,
                 ImageHref = imageRef
-            };  
+            };
 
             return animePreview;
         }
@@ -112,7 +95,6 @@ namespace AnimeAggregator.Controllers
             var doc = new HtmlDocument();
             doc.Load(stream);
             nodes.AddRange(doc.QuerySelectorAll("ul.update-list li a"));
-            nodes = nodes.ToList();
             return nodes;
         }
 
