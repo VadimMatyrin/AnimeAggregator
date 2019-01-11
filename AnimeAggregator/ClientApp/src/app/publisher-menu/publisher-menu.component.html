@@ -16,11 +16,6 @@
           <li *ngFor="let publisher of publishers" (click)="selectPublisher(publisher)">
             <span>{{publisher.name}}</span>
           </li>
-          <!--<li [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]='{ exact: true }'>
-      <a [routerLink]='["/"]' (click)='collapse()'>
-        <span class='glyphicon glyphicon-home'></span> Home
-      </a>
-    </li>-->
         </ul>
         <div class="row pageNav">
           <div class="col-xs-3 text-center">

@@ -2,15 +2,18 @@
   <div>
     <h1>{{publisher.name}}</h1>
     <div class="row">
-      <select class="form-control col-sm-3" (change)="onChange($event.target.value, null)">
-        <option value="Any" selected>Any</option>
-        <option *ngFor="let key of keys" [value]="key" [label]="dubType[key]"></option>
-      </select>
-      <br />
-      <select class="form-control col-sm-3" (change)="onChange(null, $event.target.value)">
-        <option value="Any" selected>Any</option>
-        <option *ngFor="let anime of animes" [value]="anime.name" [label]="anime.name"></option>
-      </select>
+      <div class="col-xs-12 col-sm-4 animeSelection">
+        <select class="form-control col-sm-3" (change)="onChange($event.target.value, null)">
+          <option value="Any" selected>Any</option>
+          <option *ngFor="let key of keys" [value]="key" [label]="dubType[key]"></option>
+        </select>
+      </div> 
+      <div class="col-xs-12 col-sm-8 animeSelection">
+        <select class="form-control" (change)="onChange(null, $event.target.value)">
+          <option value="Any" selected>Any</option>
+          <option *ngFor="let anime of animes" [value]="anime.name" [label]="anime.name"></option>
+        </select>
+      </div>
     </div>
     <ul class='list'>
       <li *ngFor="let filteredPublisher of filteredPublishers">
@@ -24,5 +27,5 @@
 </div>
 <div class="col-sm-4" *ngIf="publisher !== undefined">
   <anime-preview [anime]="selectedAnime">
-  </anime-preview >
+  </anime-preview>
 </div>

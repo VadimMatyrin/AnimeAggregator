@@ -17,7 +17,7 @@ export class AnimePreviewComponent implements OnInit {
     if(value !== undefined && value !== null)
       this.animeService.getAnimePreview(this._anime.pageSrc).subscribe(data => {
         this.animePreview = data;
-        var txt = document.createElement("textarea");
+        let txt = document.createElement("textarea");
         txt.innerHTML = this.animePreview.description;
         this.animePreview.description = txt.value;
       });

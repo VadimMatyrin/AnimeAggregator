@@ -3,6 +3,11 @@
   .body-content {
     padding-top: 50px;
   }
+  ul li{
+    text-align:center;
+    padding-top: 5px;
+    font-size: 25px;
+  }
 }
 li {
   cursor: pointer;
@@ -30,6 +35,9 @@ li.link-active a:focus {
 }
 .pageNav {
   position: initial;
+  background-color: white;
+  color: black;
+  padding: 10px 10px 0 10px;
 }
 
 @media (min-width: 768px) {
@@ -80,12 +88,14 @@ li.link-active a:focus {
   .pageNav {
     position: absolute;
     width: 100%;
-    bottom: 20px;
+    bottom: 0;
     margin-left: 0;
     margin-right: 0;
+    border-left: 1px solid #222;
+    border-right: 1px solid #222;
   }
 }
 #selectedPage{
-  font-size: 20px;
+  font-size: 30px;
 }
 
