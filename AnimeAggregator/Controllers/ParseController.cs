@@ -40,7 +40,7 @@ namespace AnimeAggregator.Controllers
                 DubType dubType = nodeInnerText.Contains("озвучкой")? DubType.Voiceover : DubType.Subtitiles;
 
                 var num1 = short.Parse(episodeNums[0]);
-                var num2 = short.Parse(episodeNums.ElementAtOrDefault(1) is null ? episodeNums[0] : episodeNums[1]);
+                var num2 = short.Parse(episodeNums.ElementAtOrDefault(1) ?? episodeNums[0]);
                 for (var i = num1; i <= num2; i++)
                 {
                     var animeUpdate = new AnimeUpdate

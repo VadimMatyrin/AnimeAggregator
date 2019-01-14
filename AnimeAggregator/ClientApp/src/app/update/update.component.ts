@@ -18,6 +18,8 @@ export class UpdateComponent implements OnInit {
     this.selectedAnime = null;
     this._publisherUpdates = value;
     this.filteredPublishers = this._publisherUpdates;
+    this.selectedDubType = "Any";
+    this.selectedAnime = undefined;
     this.animes = [];
     for (var animeUpdate of this._publisherUpdates) {
       if (this.animes.filter(a => a.name == animeUpdate.anime.name).length === 0)
