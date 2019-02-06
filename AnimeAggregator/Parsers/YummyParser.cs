@@ -26,8 +26,8 @@ namespace AnimeAggregator.Parser
             foreach (var node in updateNodes)
             {
                 var nodeInnerText = node.QuerySelector(".update-info").InnerText;
-                var episodeNums = Regex.Split(nodeInnerText, @"\D+").Where(num => !string.IsNullOrEmpty(num)).ToList();
-                if (episodeNums.Count == 0)
+                var episodeNums = Regex.Split(nodeInnerText, @"\D+").Where(num => !string.IsNullOrEmpty(num)).ToArray();
+                if (episodeNums.Length == 0)
                     continue;
 
                 var animePageSrc = $"https://yummyanime.com{node.Attributes.FirstOrDefault(a => a.Name == "href").Value}";
