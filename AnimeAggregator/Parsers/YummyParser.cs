@@ -20,35 +20,28 @@ namespace AnimeAggregator.Parser
             if (pageNumber <= 0)
                 throw new ArgumentOutOfRangeException(nameof(pageNumber), pageNumber, "Page number cannot be less or equal to 0");
 
-            var animes = new List<Anime>();
             var animeUpdates = new List<AnimeUpdate>();
-            var updateNodes = (await GetLastUpdateNodes(pageNumber));
-            foreach (var node in updateNodes)
+            var updateNodes = await GetLastUpdateNodes(pageNumber);
+            foreach (var updateNode in updateNodes)
             {
-                var nodeInnerText = node.QuerySelector(".update-info").InnerText;
-                var episodeNums = Regex.Split(nodeInnerText, @"\D+").Where(num => !string.IsNullOrEmpty(num)).ToArray();
-                if (episodeNums.Length == 0)
-                    continue;
-
-                var animePageSrc = $"https://yummyanime.com{node.Attributes.FirstOrDefault(a => a.Name == "href").Value}";
-                var anime = new Anime { Name = node.QuerySelector(".update-title").InnerText, PageSrc = animePageSrc };
+                var nodeInnerText = updateNode.QuerySelector(".update-info").InnerText;
+                var animePageSrc = $"https://yummyanime.com{updateNode.Attributes.FirstOrDefault(a => a.Name == "href").Value}";
+                var anime = new Anime { Name = updateNode.QuerySelector(".update-title").InnerText, PageSrc = animePageSrc };
                 var publisher = new Publisher { Name = Regex.Replace(nodeInnerText, @"[^a-zA-Z]", "") };
-                var updateDate = node.QuerySelector(".update-date").InnerText;
+                var updateDate = updateNode.QuerySelector(".update-date").InnerText;
                 DubType dubType = nodeInnerText.Contains("озвучкой") ? DubType.Voiceover : DubType.Subtitiles;
-                var num1 = int.Parse(episodeNums[0]);
-                var num2 = int.Parse(episodeNums.ElementAtOrDefault(1) ?? episodeNums[0]);
-                for (int i = num1; i <= num2; i++)
-                {
-                    var animeUpdate = new AnimeUpdate
+
+                var animeUpdatesForNode = Regex.Split(nodeInnerText, @"\D+").Where(num => !string.IsNullOrEmpty(num)).Select(e =>
+                    new AnimeUpdate
                     {
                         Anime = anime,
                         Publisher = publisher,
-                        EpisodeNum = i,
+                        EpisodeNum = int.Parse(e),
                         UpdateDate = updateDate,
                         DubType = dubType
-                    };
-                    animeUpdates.Add(animeUpdate);
-                }
+                    });
+
+                animeUpdates.AddRange(animeUpdatesForNode);
             }
 
             return animeUpdates;
