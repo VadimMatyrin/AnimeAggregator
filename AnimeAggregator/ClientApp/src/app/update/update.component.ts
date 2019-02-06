@@ -10,17 +10,14 @@ import { forEach } from '@angular/router/src/utils/collection';
   styleUrls: ['./update.component.css']
 })
 export class UpdateComponent implements OnInit {
-  _publisherUpdates: AnimeUpdate[];
+  _publisherUpdates: Array<AnimeUpdate>;
 
   @Input() publisher: Publisher;
   @Input('publisherUpdates')
   set publisherUpdates(value: AnimeUpdate[]) {
-    this.selectedAnime = null;
     this._publisherUpdates = value;
     this.filteredPublishers = this._publisherUpdates;
-    this.selectedDubType = undefined;
-    this.selectedAnime = undefined;
-    this.animes = [];
+    this.resetFields();
     for (var animeUpdate of this._publisherUpdates) {
       if (this.animes.filter(a => a.name == animeUpdate.anime.name).length === 0)
         this.animes.push(animeUpdate.anime);
@@ -28,15 +25,22 @@ export class UpdateComponent implements OnInit {
     //this.animes = Array.from(new Set(this._publisherUpdates.map(item => item.anime)));
     //this.animeNames = Array.from(new Set(this._publisherUpdates.map(item => item.anime.name)));
   }
-  filteredPublishers: AnimeUpdate[];
+  filteredPublishers: Array<AnimeUpdate>;
   dubType = DubType;
-  selectedDubType: string = undefined;
-  selectedAnime: Anime = undefined;
+  selectedDubType: string;
+  selectedAnime: Anime;
   keys: Array<string>;
-  animes: Array<Anime> = [];
+  animes: Array<Anime>;
 
   constructor() {
     this.keys = Object.keys(DubType).filter(e => parseInt(e, 10) >= 0);
+  }
+
+  resetFields() {
+    this.selectedAnime = null;
+    this.selectedDubType = undefined;
+    this.selectedAnime = undefined;
+    this.animes = [];
   }
 
   onChange(dubType: string, anime: string) {

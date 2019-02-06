@@ -17,7 +17,7 @@ namespace AnimeAggregator.Controllers
     [Route("api/[controller]")]
     public class ParseController : Controller
     {
-        private readonly HttpClient Client = new HttpClient();
+        private readonly HttpClient _httpClient = new HttpClient();
 
         [HttpGet]
         [Route("GetUpdates/{pageNumber}")]
@@ -25,7 +25,7 @@ namespace AnimeAggregator.Controllers
         {
             var animes = new List<Anime>();
             var animeUpdates = new List<AnimeUpdate>();
-            var updateNodes = await GetLastUpdateNodes(pageNumber);
+            var updateNodes = (await GetLastUpdateNodes(pageNumber));
             foreach (var node in updateNodes)
             {
                 var nodeInnerText = node.QuerySelector(".update-info").InnerText;
@@ -38,10 +38,9 @@ namespace AnimeAggregator.Controllers
                 var publisher = new Publisher { Name = Regex.Replace(nodeInnerText, @"[^a-zA-Z]", "") };
                 var updateDate = node.QuerySelector(".update-date").InnerText;
                 DubType dubType = nodeInnerText.Contains("озвучкой")? DubType.Voiceover : DubType.Subtitiles;
-
-                var num1 = short.Parse(episodeNums[0]);
-                var num2 = short.Parse(episodeNums.ElementAtOrDefault(1) ?? episodeNums[0]);
-                for (var i = num1; i <= num2; i++)
+                var num1 = int.Parse(episodeNums[0]);
+                var num2 = int.Parse(episodeNums.ElementAtOrDefault(1) ?? episodeNums[0]);
+                for (int i = num1; i <= num2; i++)
                 {
                     var animeUpdate = new AnimeUpdate
                     {
@@ -61,26 +60,27 @@ namespace AnimeAggregator.Controllers
         [HttpGet]
         [Route("")]
         [Route("GetAnimePreview/{animeUrl?}")]
+        [ResponseCache(Duration = 600, Location = ResponseCacheLocation.Client)]
         public async Task<AnimePreview> GetAnimePreview(string animeUrl)
         {
             var animePage = await GetAnimePage(animeUrl);
             var description = animePage.QuerySelector("#content-desc-text p").InnerText;
             var relativeUri = animePage.QuerySelector(".poster-block img").Attributes.FirstOrDefault(a => a.Name == "src")?.Value;
             var imageRef = $"https://yummyanime.com{relativeUri}";
-            var animeStatus = animePage.QuerySelector(".badge").InnerHtml;
+            var animeStatus = animePage.QuerySelector(".badge").InnerText;
             var animePreview = new AnimePreview
             {
                 AnimeStatus = animeStatus,
                 Description = description,
                 ImageHref = imageRef
             };
-
+            
             return animePreview;
         }
 
         private async Task<HtmlDocument> GetAnimePage(string animeRef)
         {
-            var result = await Client.GetAsync($"{animeRef}");
+            var result = await _httpClient.GetAsync($"{animeRef}");
             var stream = await result.Content.ReadAsStreamAsync();
             var doc = new HtmlDocument();
             doc.Load(stream);
@@ -90,7 +90,7 @@ namespace AnimeAggregator.Controllers
         private async Task<IEnumerable<HtmlNode>> GetLastUpdateNodes(int pageNumber = 1)
         {
             var nodes = new List<HtmlNode>();
-            var result = await Client.GetAsync($"https://yummyanime.com/anime-updates?page={pageNumber}");
+            var result = await _httpClient.GetAsync($"https://yummyanime.com/anime-updates?page={pageNumber}");
             var stream = await result.Content.ReadAsStreamAsync();
             var doc = new HtmlDocument();
             doc.Load(stream);
