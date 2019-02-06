@@ -1,3 +1,5 @@
+using AnimeAggregator.Interfaces;
+using AnimeAggregator.Parser;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -23,6 +25,9 @@ namespace AnimeAggregator
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             services.AddHttpClient();
+
+            services.AddScoped<IParser, YummyParser>();
+
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
