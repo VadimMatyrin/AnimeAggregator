@@ -26,14 +26,14 @@ namespace AnimeAggregator.Controllers
         }
 
         [HttpGet]
-        [Route("GetUpdates/{pageNumber}")]
+        [Route("getUpdates/{pageNumber}")]
         public async Task<IEnumerable<AnimeUpdate>> Get(int pageNumber = 1)
         {
             return await _parser.GetAnimeUpdatesFromPage(pageNumber);
         }
 
         [HttpGet]
-        [Route("GetAnimePreview/{animeUrl?}")]
+        [Route("getAnimePreview/{animeUrl?}")]
         [ResponseCache(Duration = 600, Location = ResponseCacheLocation.Client)]
         public async Task<AnimePreview> GetAnimePreview(string animeUrl)
         {

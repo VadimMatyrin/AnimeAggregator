@@ -11,10 +11,10 @@ export class AnimeService {
 
   }
   getAnimeUpdates(page: number) {
-    return this.http.get<AnimeUpdate[]>(`api/Parse/GetUpdates/${page}`);
+    return this.http.get<AnimeUpdate[]>(`api/Parse/getUpdates/${page}`);
   }
 
   getAnimePreview(animeRef: string) {
-    return this.http.get<AnimePreview>(`api/Parse/GetAnimePreview?animeUrl=${encodeURIComponent(animeRef)}`);
+    return this.http.get<AnimePreview>(`api/Parse/getAnimePreview?animeUrl=${encodeURIComponent(animeRef)}`);
   }
 }
