@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace AnimeAggregator.Models
+﻿namespace AnimeAggregator.Models
 {
     public class AnimeUpdate
     {
@@ -10,7 +6,7 @@ namespace AnimeAggregator.Models
         public Publisher Publisher { get; set; }
         public int EpisodeNum { get; set; }
         public string UpdateDate { get; set; }
-        public DubType DubType { get;set;}
+        public DubType DubType { get; set; }
     }
     public enum DubType
     {

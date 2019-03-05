@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace AnimeAggregator.Models
+﻿namespace AnimeAggregator.Models
 {
     public class Publisher
     {

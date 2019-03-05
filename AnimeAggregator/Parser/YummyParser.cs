@@ -20,7 +20,6 @@ namespace AnimeAggregator.Parser
             if (pageNumber <= 0)
                 throw new ArgumentOutOfRangeException(nameof(pageNumber), pageNumber, "Page number cannot be less or equal to 0");
 
-            var animes = new List<Anime>();
             var animeUpdates = new List<AnimeUpdate>();
             var updateNodes = (await GetLastUpdateNodes(pageNumber));
             foreach (var node in updateNodes)
